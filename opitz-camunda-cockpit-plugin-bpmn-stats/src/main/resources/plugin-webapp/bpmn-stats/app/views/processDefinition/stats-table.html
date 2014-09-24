@@ -1,0 +1,76 @@
+<table>
+	<tr>
+		<td width="50%" >Process Instance Stats: <span ng-if="!processStats">Not available</span><br>
+			<table class="table table-bordered table-hover table-condensed" ng-if="processStats">
+				<thead>
+					<th>Key</th>
+					<th>Value</th>
+				</thead>
+				<tbody>
+
+					<tr>
+						<td>count</td>
+						<td>{{processStats.count}}</td>
+					</tr>
+					<tr>
+						<td>avg</td>
+						<td>{{processStats.avg | humanize}}
+						</td>
+					</tr>
+					<tr>
+						<td>min</td>
+						<td>{{processStats.min | humanize}}</td>
+					</tr>
+					<tr>
+						<td>max</td>
+						<td>{{processStats.max | humanize}}</td>
+					</tr>
+					<tr>
+						<td>stddev</td>
+						<td>{{processStats.stddev | humanize}}</td>
+					</tr>
+
+					<tr ng-if="!processStats">
+						<td colspan="3"><i class="icon-loading"></i> loading stats...</td>
+					</tr>
+				
+				</tbody>
+			</table>
+		</td>
+		<td width="50%" >		
+			<span>Task Stats of actual selected Task: <span ng-if="!taskStats">Not available</span><br></span>
+			<table class="table table-bordered table-hover table-condensed" ng-if="taskStats">
+				<thead>
+					<th>Key</th>
+					<th>Value</th>
+				</thead>
+				<tbody>
+
+					<tr>
+						<td>count</td>
+						<td>{{taskStats.count}}</td>
+					</tr>
+					<tr>
+						<td>avg</td>
+						<td>{{taskStats.avg | humanize}}</td>
+					</tr>
+					<tr>
+						<td>min</td>
+						<td>{{taskStats.min | humanize}}</td>
+					</tr>
+					<tr>
+						<td>max</td>
+						<td>{{taskStats.max | humanize}}</td>
+					</tr>
+					<tr>
+						<td>stddev</td>
+						<td>{{taskStats.stddev | humanize}}</td>
+					</tr>
+
+					
+				</tbody>
+			</table>
+		</td>
+	</tr>
+
+</table>
