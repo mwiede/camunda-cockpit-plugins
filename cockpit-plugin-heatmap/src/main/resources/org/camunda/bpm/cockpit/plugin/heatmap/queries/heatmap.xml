@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cockpit.heatmap">
+
+	<resultMap id="statsContainer"
+		type="de.matez.camunda.cockpit.plugin.heatmap.dto.StatsContainerDto">
+		<result property="id" column="ID" jdbcType="VARCHAR" />
+		<result property="count" column="COUNT" jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="selectStatsForActitvity" resultMap="statsContainer"
+		parameterType="String">
+		SELECT ACT_ID_ ID, count(*) COUNT
+		FROM ACT_HI_ACTINST
+		where enD_TIME_ is not null and PROC_DEF_ID_ =
+		#{parameter}
+		group by ACT_ID_
+	</select>
+
+</mapper>
