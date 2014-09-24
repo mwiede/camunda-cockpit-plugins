@@ -9,7 +9,7 @@
 
 	<name>Camunda Cockpit Plugin: History Statistics</name>
 	<description>This is a simple camunda cockpit plugin that showcases how you can show some statistics on the process definition view.</description>
-	<url>https://github.com/mwiede/opitz-camunda-cockpit-plugin-bpmn-stats</url>
+	<url>https://github.com/mwiede/camunda-cockpit-plugins/tree/master/opitz-camunda-cockpit-plugin-bpmn-stats</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
