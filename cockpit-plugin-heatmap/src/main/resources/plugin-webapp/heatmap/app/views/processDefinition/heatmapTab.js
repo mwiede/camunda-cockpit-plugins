@@ -14,7 +14,7 @@ ngDefine('cockpit.plugin.heatmap.views', function(module) {
     	// wir können erst die diagramm-größe abgreifen, wenn das Diagramm gerendert ist
     	
    	 if(!document.getElementById('heatmapArea')){
-   	    	var diagramId = 'processDiagram_' + $scope.processDefinition.id.replace(/:/g, '_');
+   	    	var diagramId = 'processDiagram_' + $scope.processDefinition.id.replace(/:/g, '_').replace(/\./g, '_');
    	    	$scope.heatmapElement = angular.element('<div id="heatmapArea"/>');
    			$('div#'+diagramId).parent().prepend($scope.heatmapElement);
    				var diagramHeight = document.getElementsByTagName('svg')[0].style.height.replace(/px/,'') | $('div#'+diagramId).height();
@@ -34,49 +34,45 @@ ngDefine('cockpit.plugin.heatmap.views', function(module) {
    	    }
     }
     
-    
-    
-    $scope.$on('$viewContentLoaded', function(){
-    	var processData = $scope.processData.newChild($scope);   
-    	
-    	processData.observe(['filter','activityInstanceHistoricStatistics', function(filter,activityInstanceHistoricStatistics) {
-        	
-        	
-        	$scope.initHeatMap();
-        	
-        	// aufbau der Heatmapdaten:
-        	
-        	// an dieser Stelle kommen die historic-Daten an, mann könnte die
-    		// heatmapdaten erzeugen
-        	if($scope.heatmap){
-        		$scope.heatmap.clear();
-    	    	angular.forEach(activityInstanceHistoricStatistics, function(statsElement) {    				 
-    				
-    					// find coordinates
-    					angular.forEach($scope.$parent.processDiagram.bpmnElements, function(elem){
-    						
-    						if(elem.id === statsElement.id){
-    							 var coord = $scope.getCoordinates(elem);
-    							$scope.heatmap.store.addDataPoint(coord.x,coord.y);		
-    							$('#'+elem.id).css('z-index', 999);
-    						}
-    						
-    					});
-    					
-    					//console.log(xx.store);
-    			    	
-    				
-    		     });
-    	    	//xx.store.generateRandomDataSet(100);
-        	}
-        	
-            $scope.filter = filter;
-            
-          }]);
-    	
+    angular.element(document).ready(function () {
+    	$scope.initHeatMap();
     });
     
     
+	var processData = $scope.processData.newChild($scope);   
+	
+	processData.observe(['filter','activityInstanceHistoricStatistics', function(filter,activityInstanceHistoricStatistics) {
+    	
+    	// aufbau der Heatmapdaten:
+    	
+    	// an dieser Stelle kommen die historic-Daten an, mann könnte die
+		// heatmapdaten erzeugen
+    	if($scope.heatmap){
+    		$scope.heatmap.clear();
+	    	angular.forEach(activityInstanceHistoricStatistics, function(statsElement) {    				 
+				
+					// find coordinates
+					angular.forEach($scope.$parent.processDiagram.bpmnElements, function(elem){
+						
+						if(elem.id === statsElement.id){
+							 var coord = $scope.getCoordinates(elem);
+							$scope.heatmap.store.addDataPoint(coord.x,coord.y);		
+							$('#'+elem.id).css('z-index', 999);
+						}
+						
+					});
+					
+					//console.log(xx.store);
+			    	
+				
+		     });
+	    	//xx.store.generateRandomDataSet(100);
+    	}
+    	
+        $scope.filter = filter;
+        
+      }]);
+       
     
     $scope.getCoordinates = function(elem){
     	return{
@@ -119,9 +115,9 @@ ngDefine('cockpit.plugin.heatmap.views', function(module) {
 						var coord1 = $scope.getCoordinates(endElement);
 						$scope.addHeatMapDataPoint(coord1,statsElement.count);
 						// linienkoordinaten
-						var steps = 10;
-						var h_step = Math.abs(coord.x-coord1.x)/10;
-						var v_step = Math.abs(coord.y-coord1.y)/10;
+						var steps = Math.sqrt(((coord.x-coord1.x)*(coord.x-coord1.x))+((coord.y-coord1.y)*(coord.y-coord1.y)))/20;
+						var h_step = -(coord.x-coord1.x)/steps;
+						var v_step = -(coord.y-coord1.y)/steps;
 						var actualx = coord.x+h_step;
 						var actualy = coord.y+v_step;
 						for (var int = 0; int < steps-1; int++) {
@@ -151,6 +147,10 @@ ngDefine('cockpit.plugin.heatmap.views', function(module) {
 	    });    
 	    */
     	
+    };
+    
+    $scope.clearHeatMap = function(){
+    	$scope.heatmap.clear();
     };
     
     $scope.addHeatMapDataPoint = function(coord, wertung){    	
