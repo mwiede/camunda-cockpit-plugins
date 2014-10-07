@@ -1,6 +1,6 @@
 ngDefine('cockpit.plugin.heatmap.views', [
   './processDefinition/heatmapTab'
-  ,'./processDefinition/heatmap'
+  ,'./heatmap.js-2.0/heatmap'
 ], function(module) {
 
 });

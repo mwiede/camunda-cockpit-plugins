@@ -32,7 +32,7 @@ ngDefine('cockpit.plugin.heatmap.views', function(module) {
 						
 						if(elem.id === statsElement.id){
 							 var coord = $scope.getCoordinates(elem);
-							 HeatmapService.heatmap.store.addDataPoint(coord.x,coord.y);		
+							 HeatmapService.heatmap.addData({x:coord.x,y:coord.y,value:1});		
 							$('#'+elem.id).css('z-index', 999);
 						}
 						
@@ -61,7 +61,7 @@ ngDefine('cockpit.plugin.heatmap.views', function(module) {
     	
     	HeatmapService.initHeatMap($scope.processDefinition.id);
     	
-    	HeatmapService.heatmap.clear();
+    	HeatmapService.clear();
     	
     	var bpmnElements = $scope.$parent.processDiagram.bpmnElements;
     	
@@ -123,7 +123,7 @@ ngDefine('cockpit.plugin.heatmap.views', function(module) {
 				if(elem.id === statsElement.id){
 					for (var int = 0; int < weight; int++) {
 						var coord = $scope.getCoordinates(elem);
-						$scope.heatmap.store.addDataPoint(coord.x,coord.y);
+						$scope.heatmap.addData(coord.x,coord.y);
 					}
 				}
 			});
@@ -149,7 +149,7 @@ ngDefine('cockpit.plugin.heatmap.views', function(module) {
 	  
 	  this.clear = function(){
 		  if(this.heatmap){
-			  this.heatmap.clear();
+			  this.heatmap.removeData();
 		  }
 	  };
 	  
@@ -161,29 +161,34 @@ ngDefine('cockpit.plugin.heatmap.views', function(module) {
 	   		 	//TODO: if process Diagramm id differs
 	   		 
 	   	    	var diagramId = 'processDiagram_' + processDefinitionId.replace(/:/g, '_').replace(/\./g, '_');
-	   	    	this.heatmapElement = angular.element('<div id="heatmapArea"/>');
+	   	    	
+	   			var diagramHeight = document.getElementsByTagName('svg')[0].style.height.replace(/px/,'') || $('div#'+diagramId).height();
+	   			var diagramWidth = document.getElementsByTagName('svg')[0].style.width.replace(/px/,'') || $('div#'+diagramId).width();
+	   			
+	   			this.heatmapElement = $('<div id="heatmapArea" style="position: absolute;"/>')
+	   			.width(diagramWidth)
+	   			.height(diagramHeight);
+	   			
 	   			$('div#'+diagramId).parent().prepend(this.heatmapElement);
-	   				var diagramHeight = document.getElementsByTagName('svg')[0].style.height.replace(/px/,'') | $('div#'+diagramId).height();
-	   				var diagramWidth = document.getElementsByTagName('svg')[0].style.width.replace(/px/,'') | $('div#'+diagramId).width();
+	   				
+	   				
 	   			 var config = {
 	   						"radius": 10, 
 	   						"visible": true,
-	   						"element":document.getElementById('heatmapArea'),
-	   						"height": diagramHeight,
-	   						"width": diagramWidth
+	   						"container":document.getElementById('heatmapArea')	   						
 	   					};
 	   					
 	   			 // heatmap erzeugen...
 	   			 this.heatmap = h337.create(config);
-	   			 var canvas = this.heatmap.get('canvas');
-	   			 canvas.style.zIndex = 998;
+	   			 //var canvas = this.heatmap.get('canvas');
+	   			 //canvas.style.zIndex = 998;
 	   	    }
 	    };
 	    
 	    this.addHeatMapDataPoint = function(coord, wertung){    	
-	    	for (var int = 0; int < wertung; int++) {
-				this.heatmap.store.addDataPoint(coord.x,coord.y);
-			}
+//	    	for (var int = 0; int < wertung; int++) {
+				this.heatmap.addData({x:coord.x,y:coord.y, value:wertung});
+//			}
 	    	
 	    };
 	 
