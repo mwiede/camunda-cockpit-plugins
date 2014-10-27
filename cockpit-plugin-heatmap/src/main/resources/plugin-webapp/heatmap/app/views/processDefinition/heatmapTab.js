@@ -17,39 +17,39 @@ ngDefine('cockpit.plugin.heatmap.views', function(module) {
     });
     
     
-	var processData = $scope.processData.newChild($scope);   
-	
-	processData.observe(['filter','activityInstanceHistoricStatistics', function(filter,activityInstanceHistoricStatistics) {
-    	
-    	// aufbau der Heatmapdaten:
-    	
-    	// an dieser Stelle kommen die historic-Daten an, mann könnte die
-		// heatmapdaten erzeugen
-    	if(HeatmapService.heatmap){
-    		HeatmapService.clear();
-	    	angular.forEach(activityInstanceHistoricStatistics, function(statsElement) {    				 
-				
-					// find coordinates
-					angular.forEach($scope.$parent.processDiagram.bpmnElements, function(elem){
-						
-						if(elem.id === statsElement.id){
-							 var coord = $scope.getCoordinates(elem);
-							 HeatmapService.heatmap.addData({x:coord.x,y:coord.y,value:1});		
-							$('#'+elem.id).css('z-index', 999);
-						}
-						
-					});
-					
-					//console.log(xx.store);
-			    	
-				
-		     });
-	    	//xx.store.generateRandomDataSet(100);
-    	}
-    	
-        $scope.filter = filter;
-        
-      }]);
+//	var processData = $scope.processData.newChild($scope);   
+//	
+//	processData.observe(['filter','activityInstanceHistoricStatistics', function(filter,activityInstanceHistoricStatistics) {
+//    	
+//    	// aufbau der Heatmapdaten:
+//    	
+//    	// an dieser Stelle kommen die historic-Daten an, mann könnte die
+//		// heatmapdaten erzeugen
+//    	if(HeatmapService.heatmap){
+//    		HeatmapService.clear();
+//	    	angular.forEach(activityInstanceHistoricStatistics, function(statsElement) {    				 
+//				
+//					// find coordinates
+//					angular.forEach($scope.$parent.processDiagram.bpmnElements, function(elem){
+//						
+//						if(elem.id === statsElement.id){
+//							 var coord = $scope.getCoordinates(elem);
+//							 HeatmapService.heatmap.addData({x:coord.x,y:coord.y,value:1});		
+//							$('#'+elem.id).css('z-index', 999);
+//						}
+//						
+//					});
+//					
+//					//console.log(xx.store);
+//			    	
+//				
+//		     });
+//	    	//xx.store.generateRandomDataSet(100);
+//    	}
+//    	
+//        $scope.filter = filter;
+//        
+//      }]);
        
     
     $scope.getCoordinates = function(elem){
@@ -186,7 +186,7 @@ ngDefine('cockpit.plugin.heatmap.views', function(module) {
 	   				
 	   				
 	   			 var config = {
-	   						"radius": 10, 
+	   						"radius": 30, 
 	   						"visible": true,
 	   						"container":document.getElementById('heatmapArea')	   						
 	   					};

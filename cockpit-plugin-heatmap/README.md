@@ -8,6 +8,7 @@ For this plugin, my idea was simple tranfer historic data to a background-layer 
 You can also think of process mining that way. By realizing the flow with the most heat, you should compare this with your requirements and you are able do a variance analysis between the previously thought common flow and the actual data.
 
 ![Screenshot](Screenshot1.png?raw=true "Screenshot")
+![Screenshot](Screenshot2.png?raw=true "Screenshot")
 
 I have some process models, I was using during development in my other repository. See the sources in [https://github.com/mwiede/camunda-samples/tree/master/camunda-heatmap-examples](https://github.com/mwiede/camunda-samples/tree/master/camunda-heatmap-examples)
 
