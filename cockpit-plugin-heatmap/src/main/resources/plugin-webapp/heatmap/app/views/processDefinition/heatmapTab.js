@@ -8,8 +8,8 @@ ngDefine('cockpit.plugin.heatmap.views', function(module) {
 	  
     $scope.activityStats = null;
     
-    HeatmapEngineSpecificResource.query({id: $scope.processDefinition.id}).$then(function(response) {
-        $scope.activityStats = response.data;
+    HeatmapEngineSpecificResource.query({id: $scope.processDefinition.id}).$promise.then(function(response) {
+        $scope.activityStats = response;
     });     
     
     angular.element(document).ready(function () {
@@ -174,6 +174,7 @@ ngDefine('cockpit.plugin.heatmap.views', function(module) {
 	   		 	//TODO: if process Diagramm id differs
 	   		 
 	   	    	var diagramId = 'processDiagram_' + processDefinitionId.replace(/:/g, '_').replace(/\./g, '_');
+	   	    	diagramId = 'processDiagram_1';//since 7.2.0
 	   	    	
 	   			var diagramHeight = document.getElementsByTagName('svg')[0].style.height.replace(/px/,'') || $('div#'+diagramId).height();
 	   			var diagramWidth = document.getElementsByTagName('svg')[0].style.width.replace(/px/,'') || $('div#'+diagramId).width();

@@ -1,6 +1,5 @@
 package de.matez.camunda.cockpit.plugin.heatmap.resources;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -17,9 +16,6 @@ import org.camunda.bpm.engine.test.Deployment;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-
-
 
 import de.matez.camunda.cockpit.plugin.heatmap.dto.StatsContainerDto;
 
