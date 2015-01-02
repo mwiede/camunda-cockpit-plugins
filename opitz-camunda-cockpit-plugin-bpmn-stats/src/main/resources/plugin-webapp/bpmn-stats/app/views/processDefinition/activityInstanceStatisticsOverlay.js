@@ -6,7 +6,7 @@ ngDefine('cockpit.plugin.bpmn-stats.views', function(module) {
         processData = $scope.processData.newChild($scope);
 
     // provide activity if historic stats are available
-    processData.provide('activityHistoricInstance', ['activityInstanceHistoricStatistics', function (activityInstanceStatistics) {
+    processData.provide('activityHistoricInstance', ['activityInstanceHistoricStats', function (activityInstanceStatistics) {
       for (var i = 0; i < activityInstanceStatistics.length; i++) {
         var current = activityInstanceStatistics[i];
         if (current.id === bpmnElement.id) {

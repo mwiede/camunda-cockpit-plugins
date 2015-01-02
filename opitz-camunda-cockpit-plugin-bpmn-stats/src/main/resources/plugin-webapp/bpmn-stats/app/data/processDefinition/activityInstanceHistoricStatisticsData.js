@@ -3,7 +3,7 @@ ngDefine('cockpit.plugin.bpmn-stats.data', function(module) {
   var Controller = [ '$scope', 'processData', 'BpmnStatsTaskProcessDefinitionResource',
       function ($scope, processData, BpmnStatsTaskProcessDefinitionResource) {
 
-        processData.provide('activityInstanceHistoricStatistics', ['processDefinition', function (processDefinition) {
+        processData.provide('activityInstanceHistoricStats', ['processDefinition', function (processDefinition) {
           return BpmnStatsTaskProcessDefinitionResource.queryActivityStatistics({ id : processDefinition.id }).$promise;
         }]);
 

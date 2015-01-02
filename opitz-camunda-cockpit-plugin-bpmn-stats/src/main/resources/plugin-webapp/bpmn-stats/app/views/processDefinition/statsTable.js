@@ -7,20 +7,20 @@ ngDefine('cockpit.plugin.bpmn-stats.views', function(module) {
     $scope.processStats = null;
     $scope.taskStats = null;
     
-    BpmnStatsProcessDefinitionResource.query({id: $scope.processDefinition.id}).$then(function(response) {
+    BpmnStatsProcessDefinitionResource.query({id: $scope.processDefinition.id}).$promise.then(function(response) {
           $scope.processStats = response.data;
     });      
     
     
     var processData = $scope.processData.newChild($scope);    
-    processData.observe(['filter','activityInstanceHistoricStatistics', function(filter,activityInstanceHistoricStatistics) {
+    processData.observe(['filter','activityInstanceHistoricStats', function(filter,activityInstanceHistoricStats) {
 
     	$scope.taskStats = null;
     	
     	if(filter.activityIds && filter.activityIds.length==1){
     		
-    		if(activityInstanceHistoricStatistics && activityInstanceHistoricStatistics.length>0){
-    			 angular.forEach(activityInstanceHistoricStatistics, function(statsElement) {
+    		if(activityInstanceHistoricStats && activityInstanceHistoricStats.length>0){
+    			 angular.forEach(activityInstanceHistoricStats, function(statsElement) {
     				if(filter.activityIds[0]==statsElement.id){
      					$scope.taskStats = statsElement;
      				}
