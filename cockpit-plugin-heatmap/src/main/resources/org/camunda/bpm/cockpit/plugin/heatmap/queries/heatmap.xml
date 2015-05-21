@@ -17,7 +17,7 @@
 		FROM ACT_HI_ACTINST
 		where enD_TIME_ is not null and PROC_DEF_ID_ =#{parameter}
 		group by
-		ACT_ID_ ,PARENT_ACT_INST_ID_ )
+		ACT_ID_ ,PARENT_ACT_INST_ID_ ) as hist
 		group by ID
 	</select>
 
