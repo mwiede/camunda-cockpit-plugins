@@ -50,7 +50,7 @@ ngDefine('cockpit.plugin.bpmn-stats.views', function(module) {
       label: 'Statistics',
       url: 'plugin://bpmn-stats/static/app/views/processDefinition/stats-table.html',
       controller: 'BpmnStatsController',
-      priority: 19
+      priority: 0
     });
   };
 
